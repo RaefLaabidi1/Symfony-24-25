@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background for contrast */
+        }
+        .card {
+            border: none; /* Remove border for a cleaner look */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+        .card-header {
+            background-color: #343a40; /* Dark background for header */
+            color: #ffffff; /* White text for contrast */
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        h1 {
+            color: #343a40; /* Dark color for the main title */
+        }
+        .btn-custom {
+            background-color: #007bff; /* Primary button color */
+            color: white; /* Button text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Author Details</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title text-center">{{ author.username }}</h2>
+            </div>
+            <div class="card-body text-center">
+                <img src="{{ asset(author.picture) }}" alt="{{ author.username }}" class="img-fluid rounded-circle mb-3" width="200" height="200">
+                <p class="lead"><strong>Email:</strong> <a href="mailto:{{ author.email }}">{{ author.email }}</a></p>
+                <p class="lead"><strong>Number of Books:</strong> {{ author.nb_books }}</p>
+                <h3>About {{ author.username }}</h3>
+                <p>{{ author.username }} is a renowned author known for having published <strong>{{ author.nb_books }}</strong> books. You can reach them at <a href="mailto:{{ author.email }}">{{ author.email }}</a>.</p>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ path('listauthors') }}" class="btn btn-custom btn-lg">Back to Authors List</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional, for interactivity) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

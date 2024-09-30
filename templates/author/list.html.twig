@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add this in the <head> section of your base Twig template or detailsShow.html.twig -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authors List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background for contrast */
+        }
+        .table {
+            border-radius: 10px; /* Rounded corners for the table */
+            overflow: hidden; /* Ensures corners are rounded properly */
+        }
+        .table thead th {
+            background-color: #343a40; /* Dark background for header */
+            color: #ffffff; /* White text for header */
+        }
+        .table tbody tr {
+            transition: background-color 0.3s; /* Smooth transition for hover effect */
+        }
+        .table tbody tr:hover {
+            background-color: #e9ecef; /* Light gray on hover */
+        }
+        .total-info {
+            margin-top: 30px; /* Space for totals */
+        }
+        .btn-custom {
+            background-color: #007bff; /* Primary button color */
+            color: white; /* Button text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Authors List</h1>
+
+        {% if authors | length > 0 %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Picture</th>
+                        <th>Books Published</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set total_books = 0 %}
+                    {% for author in authors %}
+                        <tr>
+                            <td>{{ author.id }}</td>
+                            <td>{{ author.username | upper }}</td>
+                            <td><a href="mailto:{{ author.email }}">{{ author.email }}</a></td>
+                            <td>
+                                <img src="{{ asset(author.picture) }}" alt="{{ author.username }}" class="img-fluid rounded" width="50" height="50">
+                            </td>
+                            <td>{{ author.nb_books }}</td>
+                            <td>
+                                <a href="{{ path('authorDetails', { 'id': author.id }) }}" class="btn btn-custom btn-sm">Details</a>
+                            </td>
+                        </tr>
+                        {% set total_books = total_books + author.nb_books %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="total-info text-center">
+                <h3>Total Books: {{ total_books }}</h3>
+                <h3>Total Authors: {{ authors | length }}</h3>
+            </div>
+        {% else %}
+            <div class="alert alert-warning text-center">
+                No Authors found!
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS (optional, for interactivity) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
